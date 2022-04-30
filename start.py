@@ -21,11 +21,15 @@ if __name__ == '__main__':
 
             click_x, click_y = getCoordByFLANN(targetPath=targetPath, templatePath=templatePath)
             if click_x is not None and click_y is not None:
+                print("==============================================")
+                print("==============================================")
                 print("开始模拟鼠标点击:==>" + str(click_x) + "   click_y:==>" + str(click_y))
                 print("x => " + str(click_x) + "   y:=> " + str(click_y))
                 mouseUtil.move_click(1921, 1180)
                 # 鼠标复位
                 move_to_default()
+                print("==============================================")
+                print("==============================================")
         except Exception as ex:
             print("程序出现异常!" + str(ex))
 

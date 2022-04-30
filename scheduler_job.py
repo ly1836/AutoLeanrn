@@ -56,7 +56,7 @@ def addJob(current_section_index):
                 switch_section_job,
                 args=[index],
                 trigger='date',
-                run_date=datetime.datetime.now() + datetime.timedelta(seconds=time_sum)
+                run_date=datetime.datetime.now() + datetime.timedelta(minutes=time_sum)
             )
 
             print("添加任务 - " + str(index))

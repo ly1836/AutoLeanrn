@@ -38,6 +38,7 @@ if __name__ == '__main__':
                 move_to_default()
                 print("==============================================")
                 print("==============================================")
+            time.sleep(4)
         except Exception as ex:
             print("程序出现异常!" + str(ex))
 

@@ -3,19 +3,25 @@ from datetime import datetime
 from image_identification import getCoordByFLANN
 from img_util import Capture, calc_ratio_error
 from mouse_click import MouseUtil, move_to_default
+from scheduler_job import addJob
 
 targetPath = "./img/target/target.png"
 templatePath = "./img/template/c1.png"
 
-capture = Capture(targetPath)
 # 屏幕误差系数
 error_coefficient = calc_ratio_error()
-mouseUtil = MouseUtil(error_coefficient)
+
 
 if __name__ == '__main__':
+    # 添加切换章节任务
+    # 第四章开始
+    addJob(3)
 
     while True:
         try:
+            capture = Capture(targetPath)
+            mouseUtil = MouseUtil(error_coefficient)
+
             capture.window_capture()
             time.sleep(1)
 

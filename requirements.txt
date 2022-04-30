@@ -6,3 +6,4 @@ pillow==8.4.0
 pypiwin32==223
 pywin32==303
 mouse==0.7.1
+APScheduler==3.9.1

@@ -134,5 +134,5 @@ def getCoordByFLANN(targetPath = "./img/target/t1.png", templatePath = "./img/te
 
         return click_x, click_y
     else:
-        print("未识别出符合误差的图片，误差 - %d/%d" % (len(good), MIN_MATCH_COUNT))
+        #print("未识别出符合误差的图片，误差 - %d/%d" % (len(good), MIN_MATCH_COUNT))
         return None, None

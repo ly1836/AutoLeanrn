@@ -1,5 +1,5 @@
 import time
-
+from datetime import datetime
 from image_identification import getCoordByFLANN
 from img_util import Capture, calc_ratio_error
 from mouse_click import MouseUtil, move_to_default
@@ -23,6 +23,8 @@ if __name__ == '__main__':
             if click_x is not None and click_y is not None:
                 print("==============================================")
                 print("==============================================")
+                dt = datetime.now()
+                print(f'时间=>月{dt.day}日 {dt.hour}:{dt.minute}:{dt.second}')
                 print("开始模拟鼠标点击:==>" + str(click_x) + "   click_y:==>" + str(click_y))
                 print("x => " + str(click_x) + "   y:=> " + str(click_y))
                 mouseUtil.move_click(1921, 1180)

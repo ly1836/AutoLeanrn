@@ -1,7 +1,8 @@
+import gc
 import time
 from datetime import datetime
 from image_identification import getCoordByFLANN
-from img_util import Capture, calc_ratio_error
+from img_util import calc_ratio_error, window_capture
 from mouse_click import MouseUtil, move_to_default
 from scheduler_job import addJob
 
@@ -14,15 +15,17 @@ error_coefficient = calc_ratio_error()
 
 if __name__ == '__main__':
     # 添加切换章节任务
-    # 第四章开始
-    addJob(3)
+    # 第五章开始
+    addJob(4)
+
+    mouseUtil = MouseUtil(error_coefficient)
+    click_x = None
+    click_y = None
+    dt = None
 
     while True:
         try:
-            capture = Capture(targetPath)
-            mouseUtil = MouseUtil(error_coefficient)
-
-            capture.window_capture()
+            window_capture(targetPath)
             time.sleep(1)
 
             click_x, click_y = getCoordByFLANN(targetPath=targetPath, templatePath=templatePath)
@@ -38,7 +41,13 @@ if __name__ == '__main__':
                 move_to_default()
                 print("==============================================")
                 print("==============================================")
-            time.sleep(4)
+            #time.sleep(4)
         except Exception as ex:
             print("程序出现异常!" + str(ex))
+        finally:
+            mouseUtil = None
+            click_x = None
+            click_y = None
+            dt = None
+            gc.collect()
 

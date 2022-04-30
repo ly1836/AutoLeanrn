@@ -1,3 +1,5 @@
+import gc
+
 import mouse
 
 
@@ -25,21 +27,25 @@ class MouseUtil:
         # 移动到该坐标
         mouse.move(x, y, duration=1)
         click()
+        gc.collect()
 
     # 关闭浏览器第二的table页
     def close_second_table(self):
         mouse.move(706 / self.error_coefficient, 24 / self.error_coefficient, duration=1)
         click()
         print("关闭浏览器第二的页签...")
+        gc.collect()
 
     # 点击浏览器第一个标签页
     def click_first_table(self):
         mouse.move(180 / self.error_coefficient, 25 / self.error_coefficient, duration=1)
         click()
         print("点击浏览器第一个标签页...")
+        gc.collect()
 
     # 点击浏览器第二个标签页
     def click_second_table(self):
         mouse.move(555 / self.error_coefficient, 25 / self.error_coefficient, duration=1)
         click()
-        print("点击浏览器第一个标签页...")
+        print("点击浏览器第二个标签页...")
+        gc.collect()

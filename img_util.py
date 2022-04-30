@@ -1,3 +1,4 @@
+import gc
 import win32gui
 import win32print
 import win32ui
@@ -20,42 +21,43 @@ def calc_ratio_error():
 
     error_coefficient = float(real_w / w)
     print("误差系数 ==> " + str(error_coefficient))
+    gc.collect()
     return error_coefficient
 
+# 截图
+def window_capture(filename):
+    hwnd = 0  # 窗口的编号，0号表示当前活跃窗口
+    hdc = win32gui.GetDC(0)
+    w = win32print.GetDeviceCaps(hdc, win32con.DESKTOPHORZRES)
+    h = win32print.GetDeviceCaps(hdc, win32con.DESKTOPVERTRES)
 
-class Capture:
+    # 根据窗口句柄获取窗口的设备上下文DC（Divice Context）
+    hwndDC = win32gui.GetWindowDC(hwnd)
+    # 根据窗口的DC获取mfcDC
+    mfcDC = win32ui.CreateDCFromHandle(hwndDC)
+    # mfcDC创建可兼容的DC
+    saveDC = mfcDC.CreateCompatibleDC()
+    # 创建bigmap准备保存图片
+    saveBitMap = win32ui.CreateBitmap()
 
-    def __init__(self, filename):
-        hdc = win32gui.GetDC(0)
-        self.w = win32print.GetDeviceCaps(hdc, win32con.DESKTOPHORZRES)
-        self.h = win32print.GetDeviceCaps(hdc, win32con.DESKTOPVERTRES)
-        self.filename = filename
+    # print w,h　　　#图片大小
+    # 为bitmap开辟空间
+    saveBitMap.CreateCompatibleBitmap(mfcDC, w, h)
+    # 高度saveDC，将截图保存到saveBitmap中
+    saveDC.SelectObject(saveBitMap)
+    # 截取从左上角（0，0）长宽为（w，h）的图片
+    saveDC.BitBlt((0, 0), (w, h), mfcDC, (0, 0), win32con.SRCCOPY)
+    saveBitMap.SaveBitmapFile(saveDC, filename)
 
-    # 截图
-    def window_capture(self):
-        hwnd = 0  # 窗口的编号，0号表示当前活跃窗口
-        # 根据窗口句柄获取窗口的设备上下文DC（Divice Context）
-        hwndDC = win32gui.GetWindowDC(hwnd)
-        # 根据窗口的DC获取mfcDC
-        mfcDC = win32ui.CreateDCFromHandle(hwndDC)
-        # mfcDC创建可兼容的DC
-        saveDC = mfcDC.CreateCompatibleDC()
-        # 创建bigmap准备保存图片
-        saveBitMap = win32ui.CreateBitmap()
+    # 释放资源，非常重要！！！
+    win32gui.DeleteObject(saveBitMap.GetHandle())
+    saveDC.DeleteDC()
+    mfcDC.DeleteDC()
+    win32gui.ReleaseDC(hwnd, hwndDC)
 
-        # print w,h　　　#图片大小
-        # 为bitmap开辟空间
-        saveBitMap.CreateCompatibleBitmap(mfcDC, self.w, self.h)
-        # 高度saveDC，将截图保存到saveBitmap中
-        saveDC.SelectObject(saveBitMap)
-        # 截取从左上角（0，0）长宽为（w，h）的图片
-        saveDC.BitBlt((0, 0), (self.w, self.h), mfcDC, (0, 0), win32con.SRCCOPY)
-        saveBitMap.SaveBitmapFile(saveDC, self.filename)
-
-    # 计算屏幕缩放与真实分辨率的误差系数
+    gc.collect()
 
 
 if __name__ =='__main__':
-    capture = Capture("img/target/target2.png")
-    #capture.window_capture()
+    #window_capture()
     calc_ratio_error()

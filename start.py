@@ -5,7 +5,7 @@ from img_util import Capture, calc_ratio_error
 from mouse_click import MouseUtil, move_to_default
 
 targetPath = "./img/target/target.png"
-templatePath = "./img/template/continue.png"
+templatePath = "./img/template/c1.png"
 
 capture = Capture(targetPath)
 # 屏幕误差系数
@@ -22,7 +22,7 @@ if __name__ == '__main__':
         if click_x is not None and click_y is not None:
             print("开始模拟鼠标点击:==>" + str(click_x) + "   click_y:==>" + str(click_y))
             print("x => " + str(click_x) + "   y:=> " + str(click_y))
-            mouseUtil.move_click(click_x, click_y)
+            mouseUtil.move_click(1921, 1180)
             # 鼠标复位
             move_to_default()
 

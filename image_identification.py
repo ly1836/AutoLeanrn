@@ -42,7 +42,7 @@ def getCoord(targetPath = "./img/target/t3.png", templatePath = "./img/template/
     return x, y
 
 
-def batchGetCoord(targetPath = "./img/target/t1.png", templatePath = "./img/template/c1.png"):
+def batchGetCoord(targetPath = "./img/target/t1.png", templatePath = "./img/template/continue.png"):
     #opencv模板匹配----多目标匹配
     #读取目标图片
     target = cv2.imread(targetPath)
@@ -89,8 +89,8 @@ def batchGetCoord(targetPath = "./img/target/t1.png", templatePath = "./img/temp
 
 
 
-# 获取图片中火匹配到的坐标x、y轴
-def getCoord2(targetPath = "./img/target/t3.png", templatePath = "./img/template/c3.png"):
+# 获取图片中匹配到的坐标x、y轴
+def getCoordByFLANN(targetPath = "./img/target/t1.png", templatePath = "./img/template/continue.png"):
     MIN_MATCH_COUNT = 10  # 设置最低特征点匹配数量为10
     template = cv2.imread(templatePath, 0)  # queryImage
     target = cv2.imread(targetPath, 0)  # trainImage
@@ -122,14 +122,17 @@ def getCoord2(targetPath = "./img/target/t3.png", templatePath = "./img/template
         # 使用得到的变换矩阵对原图像的四个角进行变换，获得在目标图像上对应的坐标
         pts = np.float32([[0, 0], [0, h - 1], [w - 1, h - 1], [w - 1, 0]]).reshape(-1, 1, 2)
         dst = cv2.perspectiveTransform(pts, M)
-        cv2.polylines(target, [np.int32(dst)], True, 0, 2, cv2.LINE_AA)
+        print("识别匹配到的图像坐标为：")
+        print(dst)
+        print("计算图像区域中心点...")
+        D0 = int(dst[3][0][0])
+        A0 = int(dst[0][0][0])
+        B1 = int(dst[1][0][1])
+        A1 = int(dst[0][0][1])
+        click_x = ((D0 - A0) / 2) + A0
+        click_y = ((B1 - A1) / 2) + A1
+
+        return click_x, click_y
     else:
-        print("Not enough matches are found - %d/%d" % (len(good), MIN_MATCH_COUNT))
-        matchesMask = None
-    draw_params = dict(matchColor=(0, 255, 0),
-                       singlePointColor=None,
-                       matchesMask=matchesMask,
-                       flags=2)
-    result = cv2.drawMatches(template, kp1, target, kp2, good, None, **draw_params)
-    plt.imshow(result, 'gray')
-    plt.show()
+        print("未识别出符合误差的图片，误差 - %d/%d" % (len(good), MIN_MATCH_COUNT))
+        return None, None

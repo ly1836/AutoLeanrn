@@ -4,7 +4,7 @@ import numpy as np
 import gc
 
 # 设置最低特征点匹配数量为10
-MIN_MATCH_COUNT = 20
+MIN_MATCH_COUNT = 30
 # 创建设置FLANN匹配
 FLANN_INDEX_KDTREE = 0
 
@@ -45,7 +45,7 @@ def getCoordByFLANN(targetPath = "./img/target/t1.png", templatePath = "./img/te
         # 使用得到的变换矩阵对原图像的四个角进行变换，获得在目标图像上对应的坐标
         pts = np.float32([[0, 0], [0, h - 1], [w - 1, h - 1], [w - 1, 0]]).reshape(-1, 1, 2)
         dst = cv2.perspectiveTransform(pts, M)
-        print("识别匹配到的图像坐标为：")
+        print("识别匹配到的图像：误差 - %d/%d" % (len(good), MIN_MATCH_COUNT))
         print(dst)
         print("计算图像区域中心点...")
         D0 = int(dst[3][0][0])

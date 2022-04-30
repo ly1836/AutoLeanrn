@@ -5,13 +5,14 @@ from apscheduler.schedulers.background import BackgroundScheduler
 from img_util import calc_ratio_error
 from mouse_click import MouseUtil
 
-time_minute = [0, 0, 0, 74, 83, 119, 127, 100, 85, 89, 14, 87, 52, 114, 74, 125, 98, 34, 36, 126, 82, 100, 13, 13, 11]
+# 章节时间间隔
+time_minute = [0, 0, 0, 1, 83, 119, 127, 100, 85, 89, 14, 87, 52, 114, 74, 125, 98, 34, 36, 126, 82, 100, 13, 13, 11]
 # 章节坐标x轴递增高度
-section_coord = [0, 0, 0, 36, 36, 36, 36, 36, 77, 36, 36, 36, 36, 77, 36, 36, 36, 77, 77, 77, 36, 36, 77, 36, 36]
+section_coord = [0, 0, 0, 0, 36, 36, 36, 36, 77, 36, 36, 36, 36, 77, 36, 36, 36, 77, 77, 77, 36, 36, 77, 36, 36]
 
-# 当前起始章节X轴
+# 当前起始章节X轴  (第四章)
 current_section_x = 2575
-# 当前起始章节Y轴
+# 当前起始章节Y轴  (第四章)
 current_section_y = 325
 
 # 屏幕误差系数

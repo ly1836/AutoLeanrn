@@ -45,7 +45,6 @@ if __name__ == '__main__':
         except Exception as ex:
             print("程序出现异常!" + str(ex))
         finally:
-            mouseUtil = None
             click_x = None
             click_y = None
             dt = None

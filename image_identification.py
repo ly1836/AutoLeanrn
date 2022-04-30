@@ -91,7 +91,7 @@ def batchGetCoord(targetPath = "./img/target/t1.png", templatePath = "./img/temp
 
 # 获取图片中匹配到的坐标x、y轴
 def getCoordByFLANN(targetPath = "./img/target/t1.png", templatePath = "./img/template/continue.png"):
-    MIN_MATCH_COUNT = 10  # 设置最低特征点匹配数量为10
+    MIN_MATCH_COUNT = 30  # 设置最低特征点匹配数量为10
     template = cv2.imread(templatePath, 0)  # queryImage
     target = cv2.imread(targetPath, 0)  # trainImage
     # Initiate SIFT detector创建sift检测器

@@ -1,4 +1,4 @@
-win32gui
+win32gui==221.3
 numpy==1.15.3
 matplotlib==3.0.1
 opencv-python==3.4.2.16

@@ -34,9 +34,9 @@ def switch_section_job(section_index):
 
     # 点击具体章节
     sum = reduce(lambda x, y: x + y, section_coord[0: section_index + 1])
-    x = current_section_x + sum
-    print(str(x))
-    mouseUtil.move_click(x, current_section_y)
+    y = current_section_y + sum
+    print(str(y))
+    mouseUtil.move_click(current_section_x, y)
 
     # 点击浏览器第二个标签页
     mouseUtil.click_second_table()

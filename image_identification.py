@@ -3,8 +3,8 @@ import cv2
 import numpy as np
 import gc
 
-# 设置最低特征点匹配数量为10
-MIN_MATCH_COUNT = 30
+# 设置最低特征点匹配数量
+MIN_MATCH_COUNT = 80
 # 创建设置FLANN匹配
 FLANN_INDEX_KDTREE = 0
 

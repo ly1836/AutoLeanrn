@@ -24,7 +24,8 @@ scheduler.start()
 
 # 切换章节
 def switch_section_job(section_index):
-    print(time.strftime('%Y-%m-%d %H:%M:%S', time.localtime(time.time())))
+    print("开始切换到第[" + str(section_index + 1) + "]章节")
+    print("时间 ==>> "+ time.strftime('%Y-%m-%d %H:%M:%S', time.localtime(time.time())))
     mouseUtil = MouseUtil(error_coefficient)
 
     # 关闭浏览器第二的table页
@@ -40,19 +41,25 @@ def switch_section_job(section_index):
 
     # 点击浏览器第二个标签页
     mouseUtil.click_second_table()
+    print("---------------------------------------------------------")
 
 
 # 添加切换章节任务   current_section_index = 当前第几个章节开始
 def addJob(current_section_index):
-    print(time.strftime('%Y-%m-%d %H:%M:%S', time.localtime(time.time())))
+    print("---------------------------------------------------------")
+    print("从第[" + str(current_section_index + 1) + "]章节开始")
+    print("时间[" + time.strftime('%Y-%m-%d %H:%M:%S', time.localtime(time.time())) + "]")
     for index, val in enumerate(time_minute):
         if index >= current_section_index:
-            if index == current_section_index:
-                time_minute[index] = 0.1
+            print("第[" + str(index + 1) + "]章需要[" + str(time_minute[index]) + "]分钟")
             # 计算章节时间
             time_sum = reduce(lambda x, y: x + y, time_minute[0: index + 1])
 
-            run_date = datetime.datetime.now() + datetime.timedelta(minutes=time_sum)
+            if index == current_section_index:
+                # 当前章节20s后直接切换章节
+                run_date = datetime.datetime.now() + datetime.timedelta(seconds=20)
+            else:
+                run_date = datetime.datetime.now() + datetime.timedelta(minutes=time_sum)
             # 当前时间+章节时间(分钟)执行任务
             scheduler.add_job(
                 switch_section_job,
@@ -61,6 +68,9 @@ def addJob(current_section_index):
                 run_date=run_date
             )
 
-            print("添加任务 - " + str(run_date.strftime('%Y-%m-%d %H:%M:%S')))
+            print("添加任务 - 第[" + str(index + 1) + "]章 - 切换章节时间[" + str(run_date.strftime('%Y-%m-%d %H:%M:%S')) + "]")
+            print("---------------------------------------------------------")
         else:
             time_minute[index] = 0
+    time_count = reduce(lambda x, y: x + y, time_minute[0:])
+    print("总共【" + str(time_count) + "】分钟")

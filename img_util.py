@@ -27,7 +27,7 @@ def calc_ratio_error():
 # 截图
 def window_capture(filename):
     hwnd = 0  # 窗口的编号，0号表示当前活跃窗口
-    hdc = win32gui.GetDC(0)
+    hdc = win32gui.GetDC(hwnd)
     w = win32print.GetDeviceCaps(hdc, win32con.DESKTOPHORZRES)
     h = win32print.GetDeviceCaps(hdc, win32con.DESKTOPVERTRES)
 

@@ -15,8 +15,8 @@ error_coefficient = calc_ratio_error()
 
 if __name__ == '__main__':
     # 添加切换章节任务
-    # 第七章开始
-    addJob(17)
+    # 第八章开始
+    addJob(9)
 
     mouseUtil = MouseUtil(error_coefficient)
     click_x = None

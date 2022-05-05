@@ -18,8 +18,12 @@ des2 = None
 
 # 获取图片中匹配到的坐标x、y轴
 def getCoordByFLANN(targetPath = "./img/target/t1.png", templatePath = "./img/template/continue.png"):
-    template = cv2.imread(templatePath, 0)  # queryImage
-    target = cv2.imread(targetPath, 0)  # trainImage
+    # cv.IMREAD_COLOR： 加载彩色图像。任何图像的透明度都会被忽视。它是默认标志。
+    # cv.IMREAD_GRAYSCALE：以灰度模式加载图像
+    # cv.IMREAD_UNCHANGED：加载图像，包括alpha通道
+
+    template = cv2.imread(templatePath, cv2.IMREAD_GRAYSCALE)  # queryImage
+    target = cv2.imread(targetPath, cv2.IMREAD_GRAYSCALE)  # trainImage
     # Initiate SIFT detector创建sift检测器
     sift = cv2.xfeatures2d.SIFT_create()
     # find the keypoints and descriptors with SIFT
